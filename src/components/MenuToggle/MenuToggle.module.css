@@ -1,0 +1,55 @@
+.draggable {
+    line-height: 150px;
+    top: 50px;
+    right: 150px;
+    cursor: grab;
+    user-select: none;
+}
+
+.menuToggle{
+    position: absolute;
+    opacity: 0.7;
+    width: 70px;
+    height: 70px;
+    z-index: 1000;
+    cursor: pointer;
+    border-radius:32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--orange-700);
+    box-shadow: 0px 0px 0px 4px rgba(92, 103, 255, 0.3);
+    transition: box-shadow 0.2s ease-in;
+}
+.menuToggle:hover, .menuToggle:focus {
+    opacity: 0.9;
+    box-shadow: 0px 0px 0px 8px rgba(92,103,255,0.3);
+  }
+
+.menuToggle::before{
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background: #fff;
+    transform: translateY(-9px);
+    transition: 0.5s;
+    box-shadow: 0 9px 0 #fff;
+}
+.menuToggle::after{
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background: #fff;
+    transform: translateY(9px);
+    transition: 0.5s;;
+}
+.menuToggle.active::before{
+    transform: translateY(0px) rotate(45deg);
+    box-shadow: 0 0 0 #fff;
+}
+.menuToggle.active::after{
+    transform: translateY(0px) rotate(-45deg);
+    box-shadow: 0 0 0 #fff;
+}
