@@ -36,7 +36,7 @@ const Menulist = ()=>{
                     icon={link.icon} 
                     text={link.text} 
                     isActive={link.isActive}/>))
-                    }       
+                    }    
                <div/>                                                                                                                                                                                                                                                                                                                                                                                                              </div>
       );
 }

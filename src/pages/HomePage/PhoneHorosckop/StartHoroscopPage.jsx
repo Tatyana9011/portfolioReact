@@ -6,9 +6,11 @@ import star3 from '../../../assets/images/goroscopAnimat/stars3.png';
 import star4 from '../../../assets/images/goroscopAnimat/stars4.png';
 import animateGoroscop from './animateGoroscop';
 import { useEffect, useRef } from "react";
+import { useDispatch } from 'react-redux';
+import {renderSignHorosckop} from '../../../redux/feature/homeSlise';
 
 const StartHoroscopPage = ()=>{
-
+    const dispatch = useDispatch()
     const blockRef = useRef(null);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ const StartHoroscopPage = ()=>{
                 <div  className={`${s.phone_image_goroscop__cloud} pulse`}
                  style={{background: `url(${require(`../../../assets/images/goroscopAnimat/cloud2.png`)})`}}></div>
             </div>
-            <div className={s.title}>
+            <div  className={s.title} onClick={()=>dispatch(renderSignHorosckop())}>
                 <p>Зодіакальний бандерогусь</p>
             </div>
 

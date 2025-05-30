@@ -18,7 +18,7 @@ const ImagePage = ()=>{
 			</div>
 			<div className={s.massager}></div>
 			<nav className={s.navBar}>
-				<img  crossorigin="anonymous" alt="Photo" id={s.preview} />
+				<img  crossOrigin="anonymous" alt="Photo" id={s.preview} />
 					<div className={s.wrapAddImage}>
 						<label htmlFor="finput" className={`${s.addImg} ${s.labelCreat}`}>
 							<input type="file" accept="image/*" id={s.finput}/>
@@ -46,7 +46,7 @@ const ImagePage = ()=>{
 			<div className={s.canvas_content}>
 				<div className={`${s.canvas_content} ${s.wrapper_width}`}>
 					<div className={`${s.album} ${s.active}`}></div>
-					<biv className={s.book}></biv>
+					<div className={s.book}></div>
 				</div>
 				<div className={s.canvas_width}>
 					

@@ -4,7 +4,6 @@ import s from './Sidebar.module.css'
 import { IonIcon } from '@ionic/react';
 
 const ItemPage = (props)=>{
-   console.log('props: ', props);
 
  return (
               <>

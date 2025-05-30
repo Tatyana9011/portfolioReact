@@ -28,7 +28,6 @@ const menuSlice = createSlice({
       state.isOpen = false;
     },
     addActiveLink:(state, action)=>{
-      console.log(action.payload);
       state.listLink = state.listLink.map(link => ({
     ...link,
     isActive: link.href === action.payload
