@@ -1,7 +1,8 @@
 // redux/features/homeSlice.js
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { checkbox } from 'ionicons/icons';
+
+
 
 export const fetchData = createAsyncThunk('home/fetchData', async () => {
   const res = await axios.get('/api/some-data');
@@ -11,11 +12,10 @@ export const fetchData = createAsyncThunk('home/fetchData', async () => {
 const homeSlice = createSlice({
   name: 'home',
   initialState: { 
-    data: [], 
-    loading: false ,
     initialHorosckop: false, //перша сторінка зі знаками зодіаку
     firstSign:{  //вибираемо перший знак гороскопу
       name:'',
+      index:0,
       nickName:'',
       discription:'',
       textDescrib:'',
@@ -24,10 +24,8 @@ const homeSlice = createSlice({
       number:'',
       text:'',  
     },
-    forecastForSign: false,  //рендер другої сторінки з прогнозом для вибраного знаку
-    signsForCouple:false,//рендер третьої сторінки зі знаками зодіаку для вибору пари для користувача
-    renderSumisnisty:false,
     twoSign:{
+      index:0,
       name:'',
       nickName:'',
     },  //вибираемо другий знак гороскопу для перевірки сумісності
@@ -38,7 +36,7 @@ const homeSlice = createSlice({
     textDescrib:' Якщо Овен неправий, він правий. Якщо ви не погоджуєтеся з Овном,  погодитесь. Якщо хочете додати пікантності в своє життя - просто скажіть Овну, як йому жити. “Останнє слово завжди за нами”',
     gun:'Протитанкові ракетні комплекси Javelin',
     advaic:'Знайти час на себе',
-    number:'4, 7, 9, 11'
+    number:'4, 7, 9, 11',
   },
   {name:'Бандерець',
     nickName:'Телець',
@@ -135,14 +133,25 @@ const homeSlice = createSlice({
     'Нейтральна сумісність. Або пан, або пропав. Для таких стосунків головне пройти перевірку часом. Ви як оливки: почнете любити одне одного, тільки коли обидва подорослішаєте',
     'Хороша сумісність.Такі стосунки завжди починаються з фрази: “Божеее, яке кончене”, коли вас бісить в людині все, але тягне одне до одного, наче магнітом. І в голові каша. Але далі одне без одного вже неможливо',
     'Ідеальна сумісність. Тут рівень Love Is - обійнявшись, дивитись, як палають куполи кремля. Зазвичай такі стосунки починаються з довгої френдзони, а в один момент переростають у найміцніше кохання і родину'
-    ]
+    ],
+    tableCompatibility:[
+[3,2,4,2,5,1,3,2,5,2,4,1],
+[2,3,1,4,1,5,2,3,4,5,1,4],
+[4,1,3,2,4,1,5,2,3,4,5,1],
+[1,4,2,3,1,4,4,5,2,3,1,5],
+[5,1,4,1,3,2,4,4,5,2,3,1],
+[1,5,1,4,2,3,2,4,4,5,2,3],
+[3,2,5,1,4,1,3,2,4,5,2,5],
+[2,3,2,5,2,4,2,3,1,4,1,5],
+[5,2,3,1,5,1,4,1,3,1,4,1],
+[2,5,1,3,1,5,2,4,1,3,1,4],
+[4,1,5,1,3,2,5,1,4,1,1,1],
+[2,4,1,5,1,3,2,5,1,4,1,3]
+]
   },
   reducers: {
     startToggleHorosckop:(state)=>{
       state.initialHorosckop = !state.initialHorosckop;
-      state.forecastForSign = false;
-      state.renderSumisnisty=false;
-      state.signsForCouple = false;
       state.firstSign = {
         name:'',
         nickName:'',
@@ -150,22 +159,26 @@ const homeSlice = createSlice({
         textDescrib:'',
         gun:'',
         advaic:'',
-        number:''
+        number:'',
+        index:0,
       };
       state.twoSign={
         name:'',
         nickName:'',
+        index:0,
       }
-    },
+  },
     renderSignHorosckop: (state) => {//рендер всех знаков 
       state.initialHorosckop = true;
     },
-    startHorosckop: (state) => { //возврат на нулевую страницу со звездами
+    updateUnitialHorosckop: (state) => {//рендер всех знаков 
       state.initialHorosckop = false;
     },
     setFirstSign: (state, action) => {  //вибрали свой знак и записали его в стейт
       const elemArr = state.db.find(item=>item.name===action.payload);
       state.firstSign = {...elemArr};
+      state.firstSign.index = state.db.findIndex(item => item.name === action.payload)+1;
+      console.log('state.firstSign.index: ', state.firstSign.index);
 
        // 1. Сначала найдём текст в кавычках
       const matches = state.firstSign.textDescrib.match(/“(.*?)”/g);
@@ -180,30 +193,22 @@ const homeSlice = createSlice({
       state.firstSign.textDescrib=cleanedText;
 
     },
-    showForecastForSign: (state) => { //рендерим гороскоп для вибраного знака
-      state.forecastForSign = true;
-    },
-    backInitialHorosckopWithActiveSign: (state) => { //возвращаемся на попередню сторінку со знаками для користувача
-      state.forecastForSign = false;
-    },
-    showSignsForCouple:(state) =>{ // рендеримо знаки зодіку для вибору пари 
-      state.forecastForSign = false;
-      state.signsForCouple = true;
-    },
-    setTwoSign:(state, action)=>{  //записуємо в стейт обраний знак для перевірки сумісності
+  
+   setTwoSign:(state, action)=>{  //записуємо в стейт обраний знак для перевірки сумісності
       const elemArr = state.db.find(item=>item.name===action.payload);
       state.twoSign={
         name:elemArr.name,
         nickName:elemArr.nickName,
+        index:state.db.findIndex(item => item.name === action.payload)+1,
+        
       };
     },
-    showSumisnistyForCouple:(state) =>{ //показуємо сумісність для пари
-      state.signsForCouple = false;
-      state.renderSumisnisty = true;
-    },
     backToSignsForCouple: (state) => { //возвращаемся на попередню сторінку зі знаками для вибору пари
-      state.renderSumisnisty = false;
-      state.signsForCouple = true;
+        state.twoSign={
+          name:'',
+          nickName:'',
+          index:'',
+        };
     },
   },
   extraReducers: (builder) => {
@@ -216,6 +221,6 @@ const homeSlice = createSlice({
   },
 });
 
-export const {startToggleHorosckop,renderSignHorosckop,startHorosckop, setFirstSign,showForecastForSign,
-   backInitialHorosckopWithActiveSign, showSignsForCouple, setTwoSign, showSumisnistyForCouple, backToSignsForCouple } = homeSlice.actions;
+export const {startToggleHorosckop,renderSignHorosckop, setFirstSign,updateUnitialHorosckop,
+    setTwoSign, showSumisnistyForCouple, backToSignsForCouple } = homeSlice.actions;
 export default homeSlice.reducer;

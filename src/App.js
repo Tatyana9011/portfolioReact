@@ -23,14 +23,14 @@ const App =()=> {
 				<Sidebar/>
         <div onClick={()=>dispatch(closeMenu())}>
           <Routes>
-                <Route path='/' Component={HomePage}/>
-                <Route path='Home' Component={HomePage}/>	
-                <Route path='Game' Component={GamePage}/>	
-                <Route path='Image' Component={ImagePage}/>	
-                <Route path='Preloader' Component={PreloaderPage}/>	
-                <Route path='Settings' Component={SettingsPage}/>
-                <Route path='Carusel' Component={CuruselPage}/>
-                <Route path='Order' Component={OrderPage}/>
+                <Route path='/' element={<HomePage/>}/>
+                <Route path='Home/*' element={<HomePage/>}/>	
+                <Route path='Game' element={<GamePage/>}/>	
+                <Route path='Image' element={<ImagePage/>}/>	
+                <Route path='Preloader' element={<PreloaderPage/>}/>	
+                <Route path='Settings' element={<SettingsPage/>}/>
+                <Route path='Carusel' element={<CuruselPage/>}/>
+                <Route path='Order' element={<OrderPage/>}/>
           </Routes>	
         </div>
         <MenuToggle/>

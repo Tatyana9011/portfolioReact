@@ -1,13 +1,12 @@
 
 import s from "./PhoneHorosckop.module.css";
 import { useSelector, useDispatch } from 'react-redux';
-import { showForecastForSign } from "../../../redux/feature/homeSlise";
 import RenderSignsGroup from "./RenderSignsGroup";
-
+import { useNavigate } from 'react-router-dom';
 const RenderSigns =()=>{
-    const dispatch = useDispatch()
     const signActive = useSelector(state => state.home.firstSign)
-
+    const navigate = useNavigate();
+     
   return(
         <>
             <div  className={s.title}>
@@ -16,7 +15,7 @@ const RenderSigns =()=>{
 
             <RenderSignsGroup/>
           
-            {signActive.name!==''?<button onClick={()=>dispatch(showForecastForSign())} className={s.change}>Продовжити</button>:''}
+            {signActive.name!==''?<button onClick={()=>navigate('/Home/forecast')} className={s.change}>Продовжити</button>:''}
 
         </>
     )

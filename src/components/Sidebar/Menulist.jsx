@@ -6,17 +6,23 @@ import { useEffect } from 'react';
 import {codeWorkingOutline,chevronBackOutline} from 'ionicons/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMenu, addActiveLink } from '../../redux/feature/menuSlice';
-
+import {updateUnitialHorosckop} from '../../redux/feature/homeSlise.js'
 
 const Menulist = ()=>{
     const dispatch = useDispatch();
     const isOpen = useSelector(state => state.menu.isOpen);
     const listLink = useSelector(state => state.menu.listLink);
     const location = useLocation();
+    const match = location.pathname.match(/^\/[^\/]+/);
 
     useEffect(() => {
-      dispatch(addActiveLink(location.pathname));
+      const hash = location.pathname.replace('#', '');
+      dispatch(addActiveLink(match[0]));
+      if (!hash.includes('/Home')) {  //если хеш не находит '/Home' то обнуляем гороскоп
+        dispatch(updateUnitialHorosckop())
+      }
     }, [location.pathname]);
+    
     return (
                 <div className={s.Menulist}>
                   
