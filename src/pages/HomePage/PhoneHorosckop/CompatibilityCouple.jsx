@@ -1,34 +1,21 @@
 
 import s from "./PhoneHorosckop.module.css";
-
 import { useSelector } from 'react-redux';
 import GoBackButton from "./GoBackButton";
 import FooterHoroscop from "./FooterHoroscop";
 
-const CompatibilityCouple =()=>{
+const CompatibilityCouple =()=>{ //сторінка сумісності пари
     const signActive = useSelector(state => state.home.firstSign);
-    console.log('signActive: ', signActive);
     const signCouple = useSelector(state => state.home.twoSign);
-    console.log('signCouple: ', signCouple);
     const db_result = useSelector(state => state.home.db_result);
     const tableCompatibility = useSelector(state => state.home.tableCompatibility);
-    //const namberCompatibility = useSelector(state => state.home.tableCompatibility[signActive.index][signCouple.index]);
-const namberCompatibility = (signActive?.index !== undefined && signCouple?.index !== undefined)
+    const namberCompatibility = (signActive?.index !== 0 && signCouple?.index !== 0)
     ? tableCompatibility[signActive.index-1][signCouple.index-1]
     : null;
-    console.log('namberCompatibility', namberCompatibility);
-  /* const namberCompatibility = useSelector((state) => {
-      const { firstSign, twoSign, tableCompatibility } = state.home;
-
-      if (!firstSign || !twoSign) return null;
-      if (firstSign.index == null || twoSign.index == null) return null;
-
-      return tableCompatibility[firstSign.index][twoSign.index];
-    });*/
 
     if (!signActive || !signCouple || namberCompatibility === null || !db_result) {
-    return <p style={{ textAlign: 'center' }}>Завантаження...</p>;
-  }
+        return <p style={{ textAlign: 'center' }}>Завантаження...</p>;
+    }
 
   return(
         <>
@@ -56,13 +43,12 @@ const namberCompatibility = (signActive?.index !== undefined && signCouple?.inde
     <div className= {s.aroundText}>
         <div className= {s.discription} >
             <p className={s.text}><b>{namberCompatibility}</b></p> 
+
             <p className={s.text}>{db_result[namberCompatibility-1]}</p>
         </div>
     </div>
 
-  <br/><div className={s.empti}></div>
-   
-        <FooterHoroscop/>
+       <FooterHoroscop/>
         
         </>   
 

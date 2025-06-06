@@ -178,7 +178,6 @@ const homeSlice = createSlice({
       const elemArr = state.db.find(item=>item.name===action.payload);
       state.firstSign = {...elemArr};
       state.firstSign.index = state.db.findIndex(item => item.name === action.payload)+1;
-      console.log('state.firstSign.index: ', state.firstSign.index);
 
        // 1. Сначала найдём текст в кавычках
       const matches = state.firstSign.textDescrib.match(/“(.*?)”/g);
@@ -207,7 +206,7 @@ const homeSlice = createSlice({
         state.twoSign={
           name:'',
           nickName:'',
-          index:'',
+          index:0,
         };
     },
   },

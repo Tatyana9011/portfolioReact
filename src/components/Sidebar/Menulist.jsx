@@ -1,7 +1,7 @@
 import ItemPage from "./ItemPage.jsx";
 import s from './Sidebar.module.css';
 import { IonIcon } from '@ionic/react';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import {codeWorkingOutline,chevronBackOutline} from 'ionicons/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,26 +13,32 @@ const Menulist = ()=>{
     const isOpen = useSelector(state => state.menu.isOpen);
     const listLink = useSelector(state => state.menu.listLink);
     const location = useLocation();
-    const match = location.pathname.match(/^\/[^\/]+/);
+    
+    
+
 
     useEffect(() => {
       const hash = location.pathname.replace('#', '');
-      dispatch(addActiveLink(match[0]));
+      const match = location.pathname.match(/^\/[^\/]+/);
+      const mainPath = match ? match[0] : '/';
+
+      dispatch(addActiveLink(mainPath));
+
       if (!hash.includes('/Home')) {  //если хеш не находит '/Home' то обнуляем гороскоп
         dispatch(updateUnitialHorosckop())
       }
-    }, [location.pathname]);
+    }, [location.pathname, dispatch]);
     
     return (
                 <div className={s.Menulist}>
                   
                   <li onClick={()=>dispatch(toggleMenu())} className={s.all_sidebar} style={{"--bg": `#f44336;`}}>
-                      <a href="#">
+                      <NavLink>
                         {isOpen?<div className={`${s.icon} ${s.two} ${s.active} `}><IonIcon icon={chevronBackOutline}/></div>:
                                 <div className={`${s.icon} ${s.one} ${s.active}`}><IonIcon icon={codeWorkingOutline}/></div>
                         }  
                           <div className={s.text}>Hid sidebar</div>
-                      </a>
+                      </NavLink>
                   </li>
                         
                    {listLink.map(link=>(

@@ -194,6 +194,8 @@ body.no-scroll {
     color: #68696b ;
   }
 
+
+ 
 /*діє для екранів менше 1600px*/ 
   @media (max-width: 1600px) {
    .draggable {

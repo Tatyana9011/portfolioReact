@@ -1,23 +1,20 @@
 
 import s from "./PhoneHorosckop.module.css";
-import { useSelector, useDispatch } from 'react-redux';
-import { showSumisnistyForCouple } from "../../../redux/feature/homeSlise";
+import { useSelector} from 'react-redux';
 import RenderSignsGroup from "./RenderSignsGroup";
 import GoBackButton from "./GoBackButton";
 import FooterHoroscop from "./FooterHoroscop";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RenderSignsTwo =()=>{
-    const dispatch = useDispatch()
+
     const signActive = useSelector(state => state.home.firstSign)
     const coupleActive = useSelector(state => state.home.twoSign)
     const navigate = useNavigate();
-    const  location = useLocation();
-    const hash = location.pathname.replace('/Home/', '');
-
-const handlOnClick = ()=>{
-    navigate('/Home/compatibility')
-}
+ 
+    const handlOnClick = ()=>{
+        navigate('/Home/compatibility')
+    }
   return(
         <>
         <GoBackButton/>
@@ -35,7 +32,6 @@ const handlOnClick = ()=>{
           
           {coupleActive?.name!==''?<button onClick={handlOnClick} className={s.change}>Продовжити</button>:''}
 
-          <br/><div className={s.empti}></div>
           <FooterHoroscop/>
         </>
     )

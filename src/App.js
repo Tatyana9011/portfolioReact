@@ -23,7 +23,7 @@ const App =()=> {
 				<Sidebar/>
         <div onClick={()=>dispatch(closeMenu())}>
           <Routes>
-                <Route path='/' element={<HomePage/>}/>
+                <Route path='*' element={<HomePage/>}/>
                 <Route path='Home/*' element={<HomePage/>}/>	
                 <Route path='Game' element={<GamePage/>}/>	
                 <Route path='Image' element={<ImagePage/>}/>	

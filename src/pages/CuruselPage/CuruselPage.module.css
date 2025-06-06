@@ -4,6 +4,7 @@
   user-select: none;
   padding: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -98,7 +99,7 @@ h1 {
   #spin_container{
     width: 9vw;
     height: 15vw;
-  }
+   }
   #drag_container, #spin_container {
     position: relative;
     z-index: 50;
@@ -454,6 +455,8 @@ h1 {
 
 .curusel .post_actions {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .curusel .post_actions_content {
@@ -504,14 +507,16 @@ h1 {
 }
 
 .curusel .post_like {
+  background: transparent;
+  border: none;
   text-decoration: none;
   color: var(--clr-text);
-  margin-right: 5px;
   font-size: 1.1rem;
   opacity: 0.65;
+  margin-right: 5px;
   border-radius: 50%;
   overflow: hidden;
-  transition: all 0.35s ease;
+  transition: color 0.35s ease;
 }
 
 .curusel .post_actions_controller {
@@ -534,8 +539,8 @@ h1 {
 .post_like.active {
   color: rgb(255, 0, 0);
   opacity: 1;
-  transform: scale(1.2);
 }
+
 
 
 /* MEDIA QUERIES */

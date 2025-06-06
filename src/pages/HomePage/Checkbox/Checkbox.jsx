@@ -7,10 +7,8 @@ import { useEffect } from "react";
 const Checkbox =()=>{
     const location = useLocation();
     const hash = location.pathname.replace('#', '');
-    console.log('hash: ', hash);
     const dispatch = useDispatch();
     const initialHorosckop = useSelector(state => state.home.initialHorosckop)
-    console.log('initialHorosckop: ', initialHorosckop);
     const navigate = useNavigate();
 
   useEffect(() => {

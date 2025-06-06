@@ -46,7 +46,6 @@ const ForecastForSign =()=>{
         <p className={`${s.gunText} ${s.pilcrow}`}><b>Щасливі числа</b></p>
     </div>
     <p className={s.pilcrow}>{signActive.number}</p>
-<br/><div className={s.empti}></div>
    
         <FooterHoroscop/>
         
